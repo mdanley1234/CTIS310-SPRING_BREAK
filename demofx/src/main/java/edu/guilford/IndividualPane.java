@@ -1,10 +1,18 @@
 package edu.guilford;
 
+import java.io.File;
+
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 
+// Container for UI elements
+// GridPane is a "layout manager" that uses a grid
 public class IndividualPane extends GridPane {
     private TextField firstNameField;
     private TextField lastNameField;
@@ -41,13 +49,29 @@ public class IndividualPane extends GridPane {
         submitButton = new Button();
         formattedNameLabel = new Label();
 
-        this.add(emailAddyField, 0, 0);
-        this.add(firstNameField, 0, 1);
+        firstNameField.setFont(new Font("Arial", 24));
+
+        // this.add(emailAddyField, 0, 0,5,1);
+        // this.add(firstNameField, 0, 5);
         this.add(lastNameField, 0, 2);
-        this.add(submitButton, 1, 0);
+        this.add(submitButton, 2, 0);
         this.add(formattedNameLabel, 1, 1);
 
+        submitButton.setOnAction(e -> {
+            formattedNameLabel.setText(firstNameField.getText() + " " + lastNameField.getText());
+        });
 
+        // submitButton.setOnAction(this::handle);
+
+        String avatar = this.getClass().getResource("bluh.png").getFile();
+        File theAvatar = new File(avatar);
+        Image image = new Image(theAvatar.toURI().toString());
+        ImageView imageView = new ImageView(image);
+        this.add(imageView, 0, 3);
+    }
+
+    public void handle(ActionEvent event) {
+        formattedNameLabel.setText(firstNameField.getText() + " " + lastNameField.getText());
     }
     
     
